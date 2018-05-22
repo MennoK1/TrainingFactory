@@ -21,7 +21,7 @@ class Person implements UserInterface, \Serializable
     private $id;
 
     /**
-     * @ORM\Column(name="loginname", type="string")
+     * @ORM\Column(name="loginname", type="string", unique=true)
      */
     private $loginname;
 
@@ -29,6 +29,8 @@ class Person implements UserInterface, \Serializable
      * @ORM\Column(name="password", type="string")
      */
     private $password;
+
+    private $plainPassword;
 
     /**
      * @ORM\Column(name="firstname", type="string")
@@ -432,5 +434,55 @@ class Person implements UserInterface, \Serializable
     {
 
     }
+
+    /**
+     * @return mixed
+     */
+    public function getPlainPassword()
+    {
+        return $this->plainPassword;
+    }
+
+    /**
+     * @param mixed $plainPassword
+     */
+    public function setPlainPassword($plainPassword)
+    {
+        $this->plainPassword = $plainPassword;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLessons()
+    {
+        return $this->lessons;
+    }
+
+    /**
+     * @param mixed $lessons
+     */
+    public function setLessons($lessons)
+    {
+        $this->lessons = $lessons;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRegistrations()
+    {
+        return $this->registrations;
+    }
+
+    /**
+     * @param mixed $registrations
+     */
+    public function setRegistrations($registrations)
+    {
+        $this->registrations = $registrations;
+    }
+
+
 }
 

@@ -9,6 +9,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoder;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class DefaultController extends Controller
 {
@@ -34,14 +36,20 @@ class DefaultController extends Controller
     /**
      * @Route("/registreren", name="registreren")
      */
-    public function registrerenAction(Request $request)
+    public function registrerenAction(Request $request, UserPasswordEncoderInterface $encoder)
     {
         $person = new Person();
+        $person->setIsInstructor(false);
+        $person->setIsMember(false);
         $form = $this->createForm(PersonType::class, $person);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
+
+            $password = $encoder->encodePassword($person, $person->getPlainPassword());
+            $person->setPassword($password);
+
             $entityManager->persist($person);
             $entityManager->flush();
 
