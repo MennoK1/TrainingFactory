@@ -24,6 +24,14 @@ class DefaultController extends Controller
     }
 
     /**
+     * @Route("/gedragsregels", name="gedragsregels")
+     */
+    public function gedragsregelsAction(){
+        return $this->render('/default/gedragsregels.html.twig');
+    }
+
+
+    /**
      * @Route("/registreren", name="registreren")
      */
     public function registrerenAction(Request $request)

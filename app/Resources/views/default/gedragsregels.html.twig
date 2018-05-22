@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="main">
+        <h1 class="main-title">Training Factory</h1>
+            <div class="row">
+                <ul class="main-menu">
+                    <div class="col-sm-4"><li class="main-menu-item"><a href="{{ path('homepage') }}">Home</a></li></div>
+                    <div class="col-sm-4"><li class="main-menu-item"><a href="{{ path('gedragsregels') }}">Gedragsregels</a></li></div>
+                    <div class="col-sm-4"><li class="main-menu-item"><a href="">Les aanbod</a></li></div>
+                    <div class="col-sm-4"><li class="main-menu-item"><a href="">Contact</a></li></div>
+                    <div class="col-sm-4"><li class="main-menu-item"><a href="">Lid worden</a></li></div>
+                    <div class="col-sm-4"><li class="main-menu-item"><a href="{{ path('login') }}">Inloggen</a></li></div>
+                </ul>
+            </div>
+    </div>
+    <h2>Gedragsregels</h2>
+        <div class="rules">
+            <p class="rules-honor">
+                Erecode van vechtsport
+                “Vechten gebeurt alleen op de mat of in de ring, en nooit op straat.
+                De technieken die je worden aangeleerd mogen alleen worden gebruikt ter verdediging van jezelf of anderen.
+                Je mag nooit je vechttechnieken gebruiken tegen iemand die zich niet kan verdedigen.
+                Eer, loyaliteit en trouw zijn aan de code zijn belangrijker dan welke vechttechniek, graduatie of titel dan ook.”
+            </p>
+            <ul class="rules-list">
+                <li class="rules-list-item">Het gebruik van doping en stimulerende middelen is verboden.</li>
+                <li class="rules-list-item">Het gebruik van slecht onderhouden en/of onveilige materialen en hulpmiddelen is verboden</li>
+                <li class="rules-list-item">Geldt zowel voor de materialen en hulpmiddelen van de organisatie als die van de sporter.</li>
+                <li class="rules-list-item">Er is respect voor onze partner (en zijn / haar niveau).</li>
+                <li class="rules-list-item">We zijn altijd sportief ook al zijn anderen dat niet.</li>
+                <li class="rules-list-item">Iedereen draagt tijdens de training voldoende beschermingsmaterialen om letsel en een kwetsuur te voorkomen.</li>
+                <li class="rules-list-item">Het lid is verplicht zijn of haar gezondheidstoestand toe te lichten, mocht dit een negatieve invloed</li>
+                <li class="rules-list-item">Sieraden, piercings e.d. die letselrisico opleveren voor de drager of anderen worden verwijderd, dan wel afgeplakt.</li>
+                <li class="rules-list-item">Discriminatie, schelden, grof taalgebruik, treiteren, pesten, irriteren of kwetsen van wie dan ook wordt niet geaccepteerd, deze gedragsregels gelden ook voor social media en kunnen aanleiding zijn voor sancties.</li>
+                <li class="rules-list-item">Vechten gebeurt alleen op de mat of in de ring, en nooit op straat. De technieken die je worden aangeleerd mogen alleen worden gebruikt ter verdediging van jezelf of anderen. Je mag nooit je vechttechnieken gebruiken tegen iemand die zich niet kan verdedigen.</li>
+                <li class="rules-list-item">Het gebruik van mobiele telefoon of het aanstaan van een mobiele telefoon is verboden in de oefenzaal en tijdens de lessen.</li>
+                <li class="rules-list-item">Het is ten strengste verboden te roken in het gebouw.</li>
+                <li class="rules-list-item">Je bent bij de training minimaal 5 à 10 minuten voor aanvang aanwezig.</li>
+                <li class="rules-list-item">Je beschikt over een goede lichamelijke hygiëne zoals korte en schone nagels, frisse adem etc.</li>
+                <li class="rules-list-item">Het gebruik van doping en stimulerende middelen is verboden.</li>
+            </ul>
+        </div>
+
+{% endblock %}
