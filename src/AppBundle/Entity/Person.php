@@ -62,14 +62,19 @@ class Person
     private $is_instructor;
 
     /**
-     * @ORM\Column(name="hiring_date", type="date")
+     * @ORM\Column(name="hiring_date", type="date", nullable=true)
      */
     private $hiring_date;
 
     /**
-     * @ORM\Column(name="salary", type="decimal", precision=10, scale=2)
+     * @ORM\Column(name="salary", type="decimal", precision=10, scale=2, nullable=true)
      */
     private $salary;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Lesson", mappedBy="person")
+     */
+    private $lessons;
 
     /**
      * @ORM\Column(name="is_member", type="boolean")
@@ -77,19 +82,24 @@ class Person
     private $is_member;
 
     /**
-     * @ORM\Column(name="street", type="string")
+     * @ORM\Column(name="street", type="string", nullable=true)
      */
     private $street;
 
     /**
-     * @ORM\Column(name="postal_code", type="string")
+     * @ORM\Column(name="postal_code", type="string", nullable=true)
      */
     private $postal_code;
 
     /**
-     * @ORM\Column(name="place", type="string")
+     * @ORM\Column(name="place", type="string", nullable=true)
      */
     private $place;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Registration", mappedBy="person")
+     */
+    private $registrations;
 
     public function getLoginname()
     {
@@ -267,7 +277,7 @@ class Person
     /**
      * @return mixed
      */
-    public function getisMember()
+    public function getIsMember()
     {
         return $this->is_member;
     }
@@ -299,17 +309,17 @@ class Person
     /**
      * @return mixed
      */
-    public function getPostal()
+    public function getPostalCode()
     {
-        return $this->postal;
+        return $this->postal_code;
     }
 
     /**
      * @param mixed $postal
      */
-    public function setPostal($postal)
+    public function setPostalCode($postal_code)
     {
-        $this->postal = $postal;
+        $this->postal_code = $postal_code;
     }
 
     public function getPlace()
