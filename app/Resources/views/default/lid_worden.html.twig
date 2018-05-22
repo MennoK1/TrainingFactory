@@ -13,6 +13,9 @@
             </ul>
         </div>
         <h3 class="main-title-user">Welkom bezoeker!</h3>
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+        {{ form_end(form) }}
     </div>
 {% endblock %}
 
