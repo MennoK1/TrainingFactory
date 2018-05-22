@@ -24,6 +24,9 @@ class Person
      */
     private $loginname;
 
+    /**
+     * @ORM\Column(name="password", type="string")
+     */
     private $password;
 
     /**
