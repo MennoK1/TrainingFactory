@@ -1,0 +1,16 @@
+.main-title{
+    display: flex;
+    justify-content: center;
+}
+
+.main-menu{
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    margin-left: 60%;
+}
+
+.main-title-user{
+    display: flex;
+    justify-content: center;
+}
