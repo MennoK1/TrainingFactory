@@ -22,26 +22,25 @@ class PersonType extends AbstractType
         $builder->add('loginname')
             ->add('plainPassword', RepeatedType::class, array(
                 'type' => PasswordType::class,
-                'first_options'  => array('label' => 'Password'),
+                'first_options' => array('label' => 'Password'),
                 'second_options' => array('label' => 'Repeat Password'),
             ))
             ->add('firstname')
             ->add('preprovision')
             ->add('lastname')
-            ->add('dateofbirth', DateType::class)
-            ->add('gender', ChoiceType::class, ["choices" => [
-                "Man" => "man",
-                "Vrouw" => "vrouw"
-            ]])
+            ->add('dateofbirth', DateType::class, [
+                "format" => 'ddMMyyyy',
+                "years" => range(2018, 1900, -1)
+            ])
+            ->add('gender', ChoiceType::class, [
+                "choices" => [
+                    "Man" => "man",
+                    "Vrouw" => "vrouw"
+                ],
+                "expanded" => true,
+                "multiple" => false])
             ->add('emailaddress', EmailType::class)
             ->add('submit', SubmitType::class);
-//            ->add('is_instructor')
-//            ->add('hiring_date')
-//            ->add('salary')
-//            ->add('is_member')
-//            ->add('street')
-//            ->add('postal_code')
-//            ->add('place');
     }
 
     /**

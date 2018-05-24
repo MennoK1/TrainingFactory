@@ -4,12 +4,15 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Person
  *
  * @ORM\Table(name="person")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\PersonRepository")
+ * @UniqueEntity(fields="loginname", message="Deze loginnaam is al bezet")
  */
 class Person implements UserInterface, \Serializable
 {
@@ -22,6 +25,7 @@ class Person implements UserInterface, \Serializable
 
     /**
      * @ORM\Column(name="loginname", type="string", unique=true)
+     * @Assert\NotBlank()
      */
     private $loginname;
 
@@ -30,35 +34,46 @@ class Person implements UserInterface, \Serializable
      */
     private $password;
 
+    /**
+     * @Assert\NotBlank()
+     */
     private $plainPassword;
 
     /**
      * @ORM\Column(name="firstname", type="string")
+     * @Assert\NotBlank()
      */
     private $firstname;
 
     /**
-     * @ORM\Column(name="preprovision", type="string")
+     * @ORM\Column(name="preprovision", type="string", nullable=true)
      */
     private $preprovision;
 
     /**
      * @ORM\Column(name="lastname", type="string")
+     * @Assert\NotBlank()
      */
     private $lastname;
 
     /**
      * @ORM\Column(name="dateofbirth", type="date")
+     * @Assert\Date()
+     * @Assert\NotBlank()
      */
     private $dateofbirth;
 
     /**
      * @ORM\Column(name="gender", type="string")
+     * @Assert\NotBlank()
+     * @Assert\Choice({"man", "vrouw"})
      */
     private $gender;
 
     /**
      * @ORM\Column(name="emailaddress", type="string")
+     * @Assert\Email()
+     * @Assert\NotBlank()
      */
     private $emailaddress;
 
@@ -390,12 +405,10 @@ class Person implements UserInterface, \Serializable
     public function getRoles()
     {
         $roles = ["bezoeker"];
-        if($this->is_member)
-        {
+        if ($this->is_member) {
             $roles[] = "member";
         }
-        if($this->is_instructor)
-        {
+        if ($this->is_instructor) {
             $roles[] = "instructor";
         }
 

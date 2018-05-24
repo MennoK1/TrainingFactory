@@ -45,6 +45,18 @@ class DefaultController extends Controller
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $validator = $this->get('validator');
+            $errors = $validator->validate($person);
+
+            if (count($errors) > 0) {
+
+                return $this->render('default/lid_worden.html.twig', [
+                    "form" => $form->createView(),
+                    "errors" => $errors
+                ]);
+            }
+
             $entityManager = $this->getDoctrine()->getManager();
 
             $password = $encoder->encodePassword($person, $person->getPlainPassword());
