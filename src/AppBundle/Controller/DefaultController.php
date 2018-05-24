@@ -26,10 +26,17 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/gedragsregels", name="gedragsregels")
-     */
+ * @Route("/gedragsregels", name="gedragsregels")
+ */
     public function gedragsregelsAction(){
         return $this->render('/default/gedragsregels.html.twig');
+    }
+
+    /**
+     * @Route("/contact", name="contact")
+     */
+    public function contactAction(){
+        return $this->render('/default/contact.html.twig');
     }
 
 
