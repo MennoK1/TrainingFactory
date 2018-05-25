@@ -15,9 +15,11 @@
             </ul>
         </div>
         <h3 class="main-title-user">Welkom bezoeker!</h3>
+        <div class="container">
         {{ form_start(form, {attr: {novalidate: 'novalidate'}}) }}
         {{ form_widget(form) }}
         {{ form_end(form) }}
+        </div>
     </div>
 {% endblock %}
 
