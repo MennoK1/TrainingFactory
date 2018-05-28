@@ -10,4 +10,11 @@ namespace AppBundle\Repository;
  */
 class LessonRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function findUpcoming()
+    {
+        return
+            $this->getEntityManager()
+                ->createQuery("SELECT u FROM AppBundle:Lesson u WHERE u.date > CURRENT_DATE ()")
+                ->getResult();
+    }
 }

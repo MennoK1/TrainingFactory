@@ -13,10 +13,29 @@
                 <div class="col-sm-4"><li class="main-menu-item"><a href="{{ path('login') }}">Inloggen</a></li></div>
             </ul>
         </div>
-        <h3 class="main-title-user">Welkom bij Trainingscentrum Den Haag</h3>
-        <p>
-            Den Haag Trainingcenter is een sportschool waar onder professionele begeleiding in een veilige omgeving met verschillende soorten martial arts, indoor bootcamp, personal- en small group trainingen worden aangeboden.
-        </p>
     </div>
-{% endblock %}
+    <h2>Les aanbod</h2>
+    <div class="container">
+        <table class="table">
+            <tr>
+                <th>Training</th>
+                <th>Datum</th>
+                <th>Duur</th>
+                <th>Locatie</th>
+                <th>Aantal personen</th>
+                <th>Instructeur</th>
+            </tr>
+            {% for lesson in lessons %}
+                <tr>
+                    <td>{{ lesson.training.description }}</td>
+                    <td>{{ lesson.date|date('d M') }}</td>
+                    <td>{{ lesson.time|date('m:i') }}</td>
+                    <td>{{ lesson.location }}</td>
+                    <td>{{ lesson.maxPersons }}</td>
+                    <td>{{ lesson.instructor.firstname }} {{ lesson.instructor.lastname }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
 
+{% endblock %}

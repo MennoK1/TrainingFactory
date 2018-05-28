@@ -179,5 +179,23 @@ class Lesson
     {
         return $this->instructor;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getTraining()
+    {
+        return $this->training;
+    }
+
+    /**
+     * @param mixed $training
+     */
+    public function setTraining($training)
+    {
+        $this->training = $training;
+    }
+
+
 }
 

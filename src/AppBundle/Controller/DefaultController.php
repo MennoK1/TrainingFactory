@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Lesson;
 use AppBundle\Entity\Person;
 use AppBundle\Form\PersonType;
 use AppBundle\Repository\PersonRepository;
@@ -26,16 +27,18 @@ class DefaultController extends Controller
     }
 
     /**
- * @Route("/gedragsregels", name="gedragsregels")
- */
-    public function gedragsregelsAction(){
+     * @Route("/gedragsregels", name="gedragsregels")
+     */
+    public function gedragsregelsAction()
+    {
         return $this->render('/default/gedragsregels.html.twig');
     }
 
     /**
      * @Route("/contact", name="contact")
      */
-    public function contactAction(){
+    public function contactAction()
+    {
         return $this->render('/default/contact.html.twig');
     }
 
@@ -77,6 +80,18 @@ class DefaultController extends Controller
 
         return $this->render('default/lid_worden.html.twig', [
             "form" => $form->createView()
+        ]);
+    }
+
+    /**
+     * @Route("/aanbod", name="aanbod")
+     */
+    public function lesAanbodAction()
+    {
+        $repository = $this->getDoctrine()->getRepository(Lesson::class);
+        $lessons = $repository->findUpcoming();
+        return $this->render("default/aanbod.html.twig", [
+            "lessons" => $lessons
         ]);
     }
 }
