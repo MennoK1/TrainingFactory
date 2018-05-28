@@ -404,12 +404,12 @@ class Person implements UserInterface, \Serializable
      */
     public function getRoles()
     {
-        $roles = ["bezoeker"];
+        $roles = ["ROLE_BEZOEKER"];
         if ($this->is_member) {
-            $roles[] = "member";
+            $roles[] = "ROLE_MEMBER";
         }
         if ($this->is_instructor) {
-            $roles[] = "instructor";
+            $roles[] = "ROLE_INSTRUCTOR";
         }
 
         return $roles;
