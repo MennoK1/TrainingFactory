@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
  * Person
@@ -497,5 +498,25 @@ class Person implements UserInterface, \Serializable
     }
 
 
+    /**
+     * @Assert\Callback
+     */
+    public function memberValidate(ExecutionContextInterface $context, $payload)
+    {
+        if (!$this->is_member)
+            return;
+        if (empty($this->getPlace())) {
+            $context->buildViolation('Plaats mag niet leeg zijn')
+                ->atPath('place')
+                ->addViolation();
+        }
+
+        if (empty($this->getStreet())) {
+            $context->buildViolation('Straat mag niet leeg zijn')
+                ->atPath('street')
+                ->addViolation();
+        }
+
+    }
 }
 

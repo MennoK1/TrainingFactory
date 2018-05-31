@@ -40,6 +40,8 @@ class PersonType extends AbstractType
                 "expanded" => true,
                 "multiple" => false])
             ->add('emailaddress', EmailType::class)
+            ->add('street')
+            ->add('place')
             ->add('submit', SubmitType::class);
     }
 

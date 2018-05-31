@@ -50,7 +50,7 @@ class DefaultController extends Controller
     {
         $person = new Person();
         $person->setIsInstructor(false);
-        $person->setIsMember(false);
+        $person->setIsMember(true);
         $form = $this->createForm(PersonType::class, $person);
 
         $form->handleRequest($request);
