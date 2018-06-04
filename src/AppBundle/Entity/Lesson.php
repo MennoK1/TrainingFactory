@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Lesson
@@ -21,31 +22,41 @@ class Lesson
 
     /**
      * @ORM\Column(name="time", type="time")
+     * @Assert\NotBlank()
+     * @Assert\Time()
      */
     private $time;
 
     /**
      * @ORM\Column(name="date", type="date")
+     * @Assert\NotBlank()
+     * @Assert\Date()
      */
     private $date;
 
     /**
      * @ORM\Column(name="location", type="string", length=255)
+     * @Assert\NotBlank()
      */
     private $location;
 
     /**
      * @ORM\Column(name="max_persons", type="integer")
+     * @Assert\NotBlank()
+     * @Assert\Type(type="integer")
+     * @Assert\GreaterThan(value= 0)
      */
     private $maxPersons;
 
     /**
      * @ORM\ManyToOne(targetEntity="Person", inversedBy="lesson")
+     * @Assert\NotBlank()
      */
     private $instructor;
 
     /**
      * @ORM\ManyToOne(targetEntity="Training", inversedBy="lessons")
+     * @Assert\NotBlank()
      */
     private $training;
 

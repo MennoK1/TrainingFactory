@@ -27,12 +27,12 @@
                     <td>{{ lesson.date|date('d M') }} {{ lesson.time|date('m:i') }}</td>
                     <td>{{ lesson.location }}</td>
                     <td>{{ lesson.instructor.firstname }} {{ lesson.instructor.lastname }}</td>
-                    <td><a href="#">Les wijzigen</a></td>
+                    <td><a href="{{ path('adminWijzigLes', {'lesId':lesson.id}) }}">Les wijzigen</a></td>
                     <td><a href="#">Deelnemers</a></td>
                 </tr>
             {% endfor %}
         </table>
-        <a href="#" class="btn btn-default">Les toevoegen</a>
+        <a href="{{ path('adminLesToevoegen') }}" class="btn btn-default">Les toevoegen</a>
     </div>
 
 {% endblock %}

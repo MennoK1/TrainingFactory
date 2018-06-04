@@ -1,11 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Menno
- * Date: 31-5-2018
- * Time: 11:24
- */
-
 namespace AppBundle\Handler;
 
 

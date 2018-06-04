@@ -5,12 +5,14 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Lesson;
 use AppBundle\Entity\Person;
 use AppBundle\Entity\Training;
+use AppBundle\Form\LessonType;
 use AppBundle\Form\TrainingsformType;
 use AppBundle\Form\PersonType;
 use AppBundle\Repository\PersonRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -128,6 +130,64 @@ class AdminController extends Controller
 
         return $this->render("admin/lessen.html.twig", [
             'lessons' => $lessons
+        ]);
+    }
+
+    /**
+     * @Route("/admin/lessen/toevoegen", name="adminLesToevoegen")
+     */
+    public function lesToevoegenAction(Request $request)
+    {
+        $lesson = new Lesson();
+        $lesson->setDate(new \DateTime());
+        $form = $this->createForm(LessonType::class, $lesson);
+
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid())
+        {
+            $manager = $this->getDoctrine()->getManager();
+            $manager->persist($lesson);
+            $manager->flush();
+
+            $this->addFlash('notice', 'Les is toegevoegd');
+            return $this->redirectToRoute('adminLessen');
+        }
+
+        return $this->render('admin/les_toevoegen.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
+
+    /**
+     * @Route("/admin/lessen/wijzig/{lesId}", name="adminWijzigLes")
+     */
+    public function lesWijzigAction(Request $request, $lesId)
+    {
+        $repository = $this->getDoctrine()->getRepository(Lesson::class);
+        $lesson = $repository->find($lesId);
+
+        if(empty($lesson))
+        {
+            $this->addFlash('error', 'Deze les kon niet worden gevonden');
+            return $this->redirectToRoute('adminHome');
+        }
+
+        $form = $this->createForm(LessonType::class, $lesson);
+        $form->add('submit', SubmitType::class, ['label' => 'wijzigen']);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid())
+        {
+            $manager = $this->getDoctrine()->getManager();
+            $manager->persist($lesson);
+            $manager->flush();
+
+            $this->addFlash('notice', 'Les is gewijzigd');
+            return $this->redirectToRoute('adminLessen');
+        }
+
+        return $this->render('admin/les_toevoegen.html.twig', [
+            'form' => $form->createView()
         ]);
     }
 }
