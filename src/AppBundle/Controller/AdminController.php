@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Lesson;
 use AppBundle\Entity\Person;
 use AppBundle\Entity\Training;
 use AppBundle\Form\TrainingsformType;
@@ -153,5 +154,18 @@ class AdminController extends Controller
         $this->addFlash('notice', 'De persoon is verwijderd');
 
         return $this->render('admin/leden.html.twig');
+    }
+
+    /**
+     * @Route("/admin/lessen", name="adminLessen")
+     */
+    public function lessenAction()
+    {
+        $repository = $this->getDoctrine()->getRepository(Lesson::class);
+        $lessons = $repository->findUpcoming();
+
+        return $this->render("admin/lessen.html.twig", [
+            'lessons' => $lessons
+        ]);
     }
 }
