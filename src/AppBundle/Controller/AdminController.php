@@ -228,4 +228,24 @@ class AdminController extends Controller
             'form' => $form->createView()
         ]);
     }
+
+    /**
+     * @Route("/admin/lessen/{lesId}/deelnemers", name="adminLesDeelnemers")
+     */
+    public function lesDeelnemersAction(Request $request, $lesId)
+    {
+        $repository = $this->getDoctrine()->getRepository(Lesson::class);
+        $lesson = $repository->find($lesId);
+
+        if(empty($lesson))
+        {
+            $this->addFlash('error', 'Deze les kon niet worden gevonden');
+            return $this->redirectToRoute('adminHome');
+        }
+
+        $registrations = $lesson->getRegistrations();
+        return $this->render('admin/deelnemersLijst.html.twig', [
+            'registrations' => $registrations
+        ]);
+    }
 }

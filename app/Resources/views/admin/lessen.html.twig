@@ -28,7 +28,7 @@
                     <td>{{ lesson.location }}</td>
                     <td>{{ lesson.instructor.firstname }} {{ lesson.instructor.lastname }}</td>
                     <td><a href="{{ path('adminWijzigLes', {'lesId':lesson.id}) }}">Les wijzigen</a></td>
-                    <td><a href="#">Deelnemers</a></td>
+                    <td><a href="{{ path('adminLesDeelnemers', {'lesId':lesson.id}) }}">Deelnemers</a></td>
                 </tr>
             {% endfor %}
         </table>

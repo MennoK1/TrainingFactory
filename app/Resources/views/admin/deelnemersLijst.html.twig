@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="main">
+        <h1 class="main-title">Training Factory</h1>
+        <div class="row">
+            <ul class="main-menu">
+                <div class="col-sm-4"><li class="main-menu-item"><a href="{{ path('adminHome') }}">Home</a></li></div>
+                <div class="col-sm-4"><li class="main-menu-item"><a href="{{ path('adminLeden') }}">Leden</a></li></div>
+                <div class="col-sm-4"><li class="main-menu-item"><a href="{{ path('logout') }}">Uitloggen</a></li></div>
+            </ul>
+        </div>
+    </div>
+    <div class="container">
+        <table class="table">
+            <tr>
+                <th>Naam</th>
+                <th>E-mailadres</th>
+                <th>Geslacht</th>
+                <th>Geboortedatum</th>
+            </tr>
+            {% for registration in registrations %}
+                <tr>
+                    <td>{{ registration.person.fullname }}</td>
+                    <td>{{ registration.person.emailadres }}</td>
+                    <td>{{ registration.person.gender }}</td>
+                    <td>{{ registration.person.dateofbirth }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+{% endblock %}

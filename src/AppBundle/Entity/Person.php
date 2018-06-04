@@ -523,5 +523,10 @@ class Person implements UserInterface, \Serializable
         }
 
     }
+
+    public function getFullname()
+    {
+        return $this->firstname . " " . $this->lastname;
+    }
 }
 

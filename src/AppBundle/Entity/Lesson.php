@@ -60,6 +60,11 @@ class Lesson
      */
     private $training;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Registration", mappedBy="lesson")
+     */
+    private $registrations;
+
 
     /**
      * Get id
@@ -207,6 +212,20 @@ class Lesson
         $this->training = $training;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getRegistrations()
+    {
+        return $this->registrations;
+    }
 
+    /**
+     * @param mixed $registrations
+     */
+    public function setRegistrations($registrations)
+    {
+        $this->registrations = $registrations;
+    }
 }
 

@@ -28,4 +28,65 @@ class Registration
      * @ORM\ManyToOne(targetEntity="Person", inversedBy="registrations")
      */
     private $person;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Lesson", inversedBy="registrations")
+     */
+    private $lesson;
+
+    /**
+     * @return mixed
+     */
+    public function getPayment()
+    {
+        return $this->payment;
+    }
+
+    /**
+     * @param mixed $payment
+     */
+    public function setPayment($payment)
+    {
+        $this->payment = $payment;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPerson()
+    {
+        return $this->person;
+    }
+
+    /**
+     * @param mixed $person
+     */
+    public function setPerson($person)
+    {
+        $this->person = $person;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLesson()
+    {
+        return $this->lesson;
+    }
+
+    /**
+     * @param mixed $lesson
+     */
+    public function setLesson($lesson)
+    {
+        $this->lesson = $lesson;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
 }
