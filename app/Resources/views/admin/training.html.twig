@@ -1,18 +1,23 @@
 {% extends 'base.html.twig' %}
 
+{% form_theme form 'bootstrap_4_layout.html.twig' %}
+
 {% block body %}
     <div class="main">
         <h1 class="main-title">Training Factory</h1>
         <div class="row">
             <ul class="main-menu">
                 <div class="col-sm-4"><li class="main-menu-item"><a href="{{ path('adminHome') }}">Home</a></li></div>
-                <div class="col-sm-4"><li class="main-menu-item"><a href="{{ path('trainingAdd') }}">Trainingen</a></li></div>
                 <div class="col-sm-4"><li class="main-menu-item"><a href="{{ path('adminLeden') }}">Leden</a></li></div>
-                <div class="col-sm-4"><li class="main-menu-item"><a href="#">Lessen</a></li></div>
                 <div class="col-sm-4"><li class="main-menu-item"><a href="{{ path('logout') }}">Uitloggen</a></li></div>
             </ul>
         </div>
     </div>
-    <h1>Welkom admin</h1>
-
+        <h3 class="main-title-user">Welkom Trainingcunt!</h3>
+        <div class="container">
+            {{ form_start(form, {attr: {novalidate: 'novalidate'}}) }}
+            {{ form_widget(form) }}
+            {{ form_end(form) }}
+        </div>
+    </div>
 {% endblock %}
