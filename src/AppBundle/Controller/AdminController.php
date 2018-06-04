@@ -14,6 +14,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
  * @Security("has_role('ROLE_INSTRUCTOR')")
@@ -280,9 +281,41 @@ class AdminController extends Controller
     /**
      * @Route("/admin/instructeurs/toevoegen", name="adminInstructeurToevoegen")
      */
-    public function instructeurToevoegenAction(Request $request)
+    public function instructeurToevoegenAction(Request $request, UserPasswordEncoderInterface $encoder)
     {
+        $person = new Person();
+        $person->setIsInstructor(true);
+        $person->setIsMember(false);
+        $form = $this->createForm(PersonType::class, $person);
 
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $validator = $this->get('validator');
+            $errors = $validator->validate($person);
+
+            if (count($errors) > 0) {
+
+                return $this->render('default/lid_worden.html.twig', [
+                    "form" => $form->createView(),
+                    "errors" => $errors
+                ]);
+            }
+
+            $entityManager = $this->getDoctrine()->getManager();
+
+            $password = $encoder->encodePassword($person, $person->getPlainPassword());
+            $person->setPassword($password);
+
+            $entityManager->persist($person);
+            $entityManager->flush();
+
+            return $this->redirectToRoute("adminInstructeurs");
+        }
+
+        return $this->render('admin/instructeurToevoegen.html.twig', [
+            "form" => $form->createView()
+        ]);
     }
 
     /**
@@ -290,14 +323,52 @@ class AdminController extends Controller
      */
     public function instructeurWijzigenAction(Request $request, $lidId)
     {
+        $repository = $this->getDoctrine()->getRepository(Person::class);
+        $person = $repository->find($lidId);
 
+        if(empty($person) || !$person->getisInstructor())
+        {
+            $this->addFlash('error', 'Deze instructeur kon niet worden gevonden');
+            return $this->redirectToRoute('adminHome');
+        }
+
+        $form = $this->createForm(PersonType::class, $person);
+        $form->remove('plainPassword');
+        $form->remove('loginname');
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($person);
+            $em->flush();
+
+            $this->addFlash('notice', 'De instructeur is aangepast');
+            return $this->redirectToRoute('adminInstructeurs');
+        }
+
+        return $this->render('admin/wijzigInstructeur.html.twig', [
+            "form" => $form->createView()
+        ]);
     }
 
     /**
-     * @Route("/admin/instructeurs/verwijder/{lidId}", name="adminVerwijderInstructeurs")
+     * @Route("/admin/instructeurs/verwijder/{lidId}", name="adminVerwijderInstructeur")
      */
     public function instructeurVerwijderenAction(Request $request, $lidId)
     {
+        $repository = $this->getDoctrine()->getRepository(Person::class);
+        $person = $repository->find($lidId);
 
+        if(empty($person) || !$person->getisInstructor())
+        {
+            $this->addFlash('error', 'Deze instructeur kon niet worden gevonden');
+            return $this->redirectToRoute('adminInstructeurs');
+        }
+
+        $this->getDoctrine()->getManager()->remove($person);
+        $this->getDoctrine()->getManager()->flush();
+        $this->addFlash('notice', 'De instructeur is verwijderd');
+
+        return $this->redirectToRoute('adminInstructeurs');
     }
 }

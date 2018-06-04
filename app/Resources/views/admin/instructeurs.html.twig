@@ -19,7 +19,7 @@
             <th>Wijzig</th>
             <th>Verwijder</th>
         </tr>
-        {% for member in members %}
+        {% for member in members if member.id != app.user.id%}
             <tr>
                 <td>{{ member.firstname ~ " " ~ member.preprovision ~ " " ~ member.lastname}}</td>
                 <td>{{ member.loginname }}</td>
@@ -28,7 +28,7 @@
             </tr>
         {% endfor %}
     </table>
-        <a href="#">Instructeur toevoegen</a>
+        <a href="{{ path('adminInstructeurToevoegen') }}" class="btn btn-default">Instructeur toevoegen</a>
     </div>
 
 {% endblock %}
