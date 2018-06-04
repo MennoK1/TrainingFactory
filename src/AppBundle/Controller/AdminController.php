@@ -44,7 +44,7 @@ class AdminController extends Controller
             return $this->redirectToRoute('adminHome');
         }
 
-        return $this->render("", [
+        return $this->render('admin/training.html.twig', [
             "form" => $form->createView()
         ]);
     }
