@@ -17,4 +17,12 @@ class PersonRepository extends \Doctrine\ORM\EntityRepository
                 ->createQuery("SELECT m FROM AppBundle:Person m WHERE m.is_member = 1")
                 ->getResult();
     }
+
+    public function findInstructors()
+    {
+        return
+            $this->getEntityManager()
+                ->createQuery("SELECT m FROM AppBundle:Person m WHERE m.is_instructor = 1")
+                ->getResult();
+    }
 }

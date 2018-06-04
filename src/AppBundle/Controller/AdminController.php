@@ -263,4 +263,41 @@ class AdminController extends Controller
             'registrations' => $registrations
         ]);
     }
+
+    /**
+     * @Route("/admin/instructeurs", name="adminInstructeurs")
+     */
+    public function instructeursAction(Request $request)
+    {
+        $repository = $this->getDoctrine()->getRepository(Person::class);
+        $members = $repository->findInstructors();
+
+        return $this->render("admin/instructeurs.html.twig", [
+            "members" => $members
+        ]);
+    }
+
+    /**
+     * @Route("/admin/instructeurs/toevoegen", name="adminInstructeurToevoegen")
+     */
+    public function instructeurToevoegenAction(Request $request)
+    {
+
+    }
+
+    /**
+     * @Route("/admin/instructeur/wijzigen/{lidId}", name="adminWijzigInstructeur")
+     */
+    public function instructeurWijzigenAction(Request $request, $lidId)
+    {
+
+    }
+
+    /**
+     * @Route("/admin/instructeurs/verwijder/{lidId}", name="adminVerwijderInstructeurs")
+     */
+    public function instructeurVerwijderenAction(Request $request, $lidId)
+    {
+
+    }
 }
