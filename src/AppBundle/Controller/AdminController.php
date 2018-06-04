@@ -44,7 +44,7 @@ class AdminController extends Controller
         $repository = $this->getDoctrine()->getRepository(Person::class);
         $person = $repository->find($lidId);
 
-        if(empty($person))
+        if(empty($person) || !$person->getIsMember())
         {
             $this->addFlash('error', 'Deze persoon kon niet worden gevonden');
             return $this->redirectToRoute('adminHome');
@@ -62,11 +62,32 @@ class AdminController extends Controller
             $em->flush();
 
             $this->addFlash('notice', 'De persoon is aangepast');
-            return $this->redirectToRoute('adminHome');
+            return $this->redirectToRoute('adminLeden');
         }
 
         return $this->render('admin/wijzigLid.html.twig', [
             "form" => $form->createView()
         ]);
+    }
+
+    /**
+     * @Route("/admin/leden/verwijder/{lidId}", name="adminVerwijderLid")
+     */
+    public function verwijderLidAction($lidId)
+    {
+        $repository = $this->getDoctrine()->getRepository(Person::class);
+        $person = $repository->find($lidId);
+
+        if(empty($person) || !$person->getIsMember())
+        {
+            $this->addFlash('error', 'Deze persoon kon niet worden gevonden');
+            return $this->redirectToRoute('adminHome');
+        }
+
+        $this->getDoctrine()->getManager()->remove($person);
+        $this->getDoctrine()->getManager()->flush();
+        $this->addFlash('notice', 'De persoon is verwijderd');
+
+        return $this->render('admin/leden.html.twig');
     }
 }
