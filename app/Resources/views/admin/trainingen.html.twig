@@ -7,6 +7,7 @@
             <ul class="main-menu">
                 <div class="col-sm-4"><li class="main-menu-item"><a href="{{ path('adminHome') }}">Home</a></li></div>
                 <div class="col-sm-4"><li class="main-menu-item"><a href="{{ path('adminLeden') }}">Leden</a></li></div>
+                <div class="col-sm-4"><li class="main-menu-item"><a href="{{ path('trainingAdd') }}">Training toevoegen</a></li></div>
                 <div class="col-sm-4"><li class="main-menu-item"><a href="{{ path('logout') }}">Uitloggen</a></li></div>
             </ul>
         </div>
@@ -17,7 +18,8 @@
                 <th>Training</th>
                 <th>tijd</th>
                 <th>Extra kosten</th>
-                <th>wijzig/verwijder</th>
+                <th>wijzig</th>
+                <th>Verwijder</th>
             </tr>
             {% for training in training %}
                 <tr>
@@ -25,7 +27,7 @@
                     <td>{{ training.duration|date('H:i') }}</td>
                     <td>{{ training.extraCosts }}</td>
                     <td><a href="{{ path('trainingWijzig', {"trainingId":training.id}) }}">Wijzig</a></td>
-
+                    <td><a href="{{ path('trainingVerwijder', {"trainingId":training.id}) }}">Verwijder</a></td>
                 </tr>
             {% endfor %}
         </table>
