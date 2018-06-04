@@ -35,9 +35,6 @@ class Person implements UserInterface, \Serializable
      */
     private $password;
 
-    /**
-     * @Assert\NotBlank()
-     */
     private $plainPassword;
 
     /**
@@ -495,6 +492,14 @@ class Person implements UserInterface, \Serializable
     public function setRegistrations($registrations)
     {
         $this->registrations = $registrations;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getId()
+    {
+        return $this->id;
     }
 
 

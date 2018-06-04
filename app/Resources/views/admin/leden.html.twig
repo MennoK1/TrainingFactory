@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="main">
+        <h1 class="main-title">Training Factory</h1>
+        <div class="row">
+            <ul class="main-menu">
+                <div class="col-sm-4"><li class="main-menu-item"><a href="{{ path('adminHome') }}">Home</a></li></div>
+                <div class="col-sm-4"><li class="main-menu-item"><a href="{{ path('logout') }}">Uitloggen</a></li></div>
+            </ul>
+        </div>
+    </div>
+    <div class="container">
+    <table class="table">
+        <tr>
+            <th>Naam</th>
+            <th>Gebruikersnaam</th>
+            <th>Wijzig</th>
+            <th>Verwijder</th>
+        </tr>
+        {% for member in members %}
+            <tr>
+                <td>{{ member.firstname ~ " " ~ member.preprovision ~ " " ~ member.lastname}}</td>
+                <td>{{ member.loginname }}</td>
+                <td><a href="{{ path('adminWijzigLid', {"lidId":member.id}) }}">Wijzig</a></td>
+            </tr>
+        {% endfor %}
+    </table>
+    </div>
+
+{% endblock %}

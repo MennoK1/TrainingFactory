@@ -10,4 +10,11 @@ namespace AppBundle\Repository;
  */
 class PersonRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function findMembers()
+    {
+        return
+            $this->getEntityManager()
+                ->createQuery("SELECT m FROM AppBundle:Person m WHERE m.is_member = 1")
+                ->getResult();
+    }
 }
