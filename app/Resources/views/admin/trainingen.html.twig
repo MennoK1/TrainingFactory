@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="main">
+        <h1 class="main-title">Training Factory</h1>
+        <div class="row">
+            <ul class="main-menu">
+                <div class="col-sm-4"><li class="main-menu-item"><a href="{{ path('adminHome') }}">Home</a></li></div>
+                <div class="col-sm-4"><li class="main-menu-item"><a href="{{ path('adminLeden') }}">Leden</a></li></div>
+                <div class="col-sm-4"><li class="main-menu-item"><a href="{{ path('logout') }}">Uitloggen</a></li></div>
+            </ul>
+        </div>
+    </div>
+    <div class="container">
+        <table class="table">
+            <tr>
+                <th>Training</th>
+                <th>tijd</th>
+                <th>Extra kosten</th>
+                <th>wijzig/verwijder</th>
+            </tr>
+            {% for training in training %}
+                <tr>
+                    <td>{{ training.description }}</td>
+                    <td>{{ training.duration|date('H:i') }}</td>
+                    <td>{{ training.extraCosts }}</td>
+                    <td><a href="{{ path('trainingWijzig', {"trainingId":training.id}) }}">Wijzig</a></td>
+
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+{% endblock %}

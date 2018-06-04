@@ -29,7 +29,7 @@ class AdminController extends Controller
     }
 
     /**
-     * @Route("/admin/training", name="trainingAdd")
+     * @Route("/admin/trainingadd", name="trainingAdd")
      */
     public function trainingAction(Request $request)
     {
@@ -50,6 +50,44 @@ class AdminController extends Controller
         return $this->render('admin/training.html.twig', [
             "form" => $form->createView()
         ]);
+    }
+
+    /**
+     * @Route("/admin/training", name="adminTrainingen")
+     */
+    public function trainingenAction()
+    {
+        $repository = $this->getDoctrine()->getRepository(Training::class);
+        $training = $repository->findAll();
+
+        return $this->render("admin/trainingen.html.twig", [
+            "training" => $training
+        ]);
+    }
+
+    /**
+     * @Route("/admin/wijzigtraining/wijzig/{trainingId}", name="trainingWijzig")
+     */
+    public function wijzigTrainingAction(Request $request, $trainingId){
+        $repository = $this->getDoctrine()->getRepository(Training::class);
+        $training =$repository->find($trainingId);
+
+        $form = $this->createForm(TrainingsformType::class, $training);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($training);
+            $em->flush();
+
+            $this->addFlash('notice', 'Training is aangepast!');
+            return $this->redirectToRoute('adminHome');
+        }
+
+        return $this->render('admin/wijzigTraining.html.twig', [
+            "form" => $form->createView()
+        ]);
+
     }
 
     /**
