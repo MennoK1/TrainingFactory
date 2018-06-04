@@ -91,6 +91,21 @@ class AdminController extends Controller
     }
 
     /**
+     * @Route("/admin/leden/verwijder/{trainingId}", name="trainingVerwijder")
+     */
+    public function verwijderTrainingAction($trainingId)
+    {
+        $repository = $this->getDoctrine()->getRepository(Training::class);
+        $training = $repository->find($trainingId);
+
+        $this->getDoctrine()->getManager()->remove($training);
+        $this->getDoctrine()->getManager()->flush();
+        $this->addFlash('notice', 'De training is verwijderd');
+
+        return $this->render('admin/index.html.twig');
+    }
+
+    /**
      * @Route("/admin/leden/wijzig/{lidId}", name="adminWijzigLid")
      */
     public function wijzigLidAction(Request $request, $lidId)
