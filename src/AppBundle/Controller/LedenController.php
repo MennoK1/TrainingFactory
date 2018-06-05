@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Tepelstreeltje
- * Date: 4-6-2018
- * Time: 11:53
- */
 
 namespace AppBundle\Controller;
 
@@ -22,7 +16,7 @@ use Symfony\Component\HttpFoundation\Request;
 class LedenController extends Controller
 {
     /**
-     * @Route("/member", name="homepage")
+     * @Route("/member", name="memberHomepage")
      */
     public function indexAction(Request $request)
     {
@@ -34,7 +28,7 @@ class LedenController extends Controller
 
 
     /**
-     * @Route("/member/gedragsregels", name="gedragsregels")
+     * @Route("/member/gedragsregels", name="memberGedragsregels")
      */
     public function gedragsregelsAction()
     {
@@ -42,7 +36,7 @@ class LedenController extends Controller
     }
 
     /**
-     * @Route("/member/contact", name="contact")
+     * @Route("/member/contact", name="memberContact")
      */
     public function contactAction()
     {
@@ -50,7 +44,7 @@ class LedenController extends Controller
     }
 
     /**
-     * @Route("/member/aanbod", name="aanbod")
+     * @Route("/member/aanbod", name="memberAanbod")
      */
     public function lesAanbodAction()
     {

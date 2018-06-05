@@ -5,12 +5,9 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Lesson;
 use AppBundle\Entity\Person;
 use AppBundle\Form\PersonType;
-use AppBundle\Repository\PersonRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Form\FormView;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoder;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class DefaultController extends Controller
