@@ -22,9 +22,9 @@
             {% for registration in registrations %}
                 <tr>
                     <td>{{ registration.person.fullname }}</td>
-                    <td>{{ registration.person.emailadres }}</td>
+                    <td>{{ registration.person.emailaddress }}</td>
                     <td>{{ registration.person.gender }}</td>
-                    <td>{{ registration.person.dateofbirth }}</td>
+                    <td>{{ registration.person.dateofbirth|date('d-M-Y') }}</td>
                 </tr>
             {% endfor %}
         </table>
