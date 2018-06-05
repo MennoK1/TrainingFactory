@@ -7,10 +7,12 @@ use AppBundle\Entity\Lesson;
 use AppBundle\Entity\Person;
 use AppBundle\Entity\Registration;
 use Doctrine\Common\Collections\ArrayCollection;
+use AppBundle\Form\PersonType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 
 /**
@@ -29,6 +31,43 @@ class LedenController extends Controller
         ]);
     }
 
+    /**
+     * @Route("/member/profiel", name="memberProfiel")
+     */
+    public function profielAction(Request $request,  UserPasswordEncoderInterface $encoder)
+    {
+        $person = $this->get('security.token_storage')->getToken()->getUser();
+        $form = $this->createForm(PersonType::class, $person);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $validator = $this->get('validator');
+            $errors = $validator->validate($person);
+
+            if (count($errors) > 0) {
+
+                return $this->render('member/profiel.html.twig', [
+                    "form" => $form->createView(),
+                    "errors" => $errors
+                ]);
+            }
+
+            $entityManager = $this->getDoctrine()->getManager();
+
+            $password = $encoder->encodePassword($person, $person->getPlainPassword());
+            $person->setPassword($password);
+
+            $entityManager->persist($person);
+            $entityManager->flush();
+
+            return $this->redirectToRoute("memberHomepage");
+        }
+
+        return $this->render('/member/profiel.html.twig', [
+            "form" => $form->createView()
+        ]);
+    }
 
     /**
      * @Route("/member/gedragsregels", name="memberGedragsregels")
