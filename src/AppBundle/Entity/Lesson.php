@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -65,6 +66,10 @@ class Lesson
      */
     private $registrations;
 
+    public function __construct()
+    {
+        $this->registrations = new ArrayCollection();
+    }
 
     /**
      * Get id
@@ -213,7 +218,7 @@ class Lesson
     }
 
     /**
-     * @return mixed
+     * @return ArrayCollection
      */
     public function getRegistrations()
     {
@@ -226,6 +231,17 @@ class Lesson
     public function setRegistrations($registrations)
     {
         $this->registrations = $registrations;
+    }
+
+    public function isIngeschreven(Person $person)
+    {
+        foreach ($this->registrations as $registration) {
+            if ($registration->getPerson()->getId() == $person->getId()) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }
 

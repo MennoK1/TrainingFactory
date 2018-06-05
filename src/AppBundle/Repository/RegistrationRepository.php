@@ -10,4 +10,10 @@ namespace AppBundle\Repository;
  */
 class RegistrationRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function findSpecific($userId, $lessonId)
+    {
+        return $this->getEntityManager()
+            ->createQuery("SELECT m FROM AppBundle:Registration m JOIN m.person p JOIN m.lesson l WHERE l.id = $lessonId AND p.id = $userId")
+            ->getSingleResult();
+    }
 }

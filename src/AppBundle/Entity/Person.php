@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -119,6 +120,12 @@ class Person implements UserInterface, \Serializable
      * @ORM\OneToMany(targetEntity="Registration", mappedBy="person")
      */
     private $registrations;
+
+    public function __construct()
+    {
+        $this->registrations = new ArrayCollection();
+    }
+
 
     public function getLoginname()
     {
@@ -479,7 +486,7 @@ class Person implements UserInterface, \Serializable
     }
 
     /**
-     * @return mixed
+     * @return ArrayCollection
      */
     public function getRegistrations()
     {

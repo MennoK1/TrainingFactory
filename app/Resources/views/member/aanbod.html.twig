@@ -32,6 +32,11 @@
                     <td>{{ lesson.location }}</td>
                     <td>{{ lesson.maxPersons }}</td>
                     <td>{{ lesson.instructor.firstname }} {{ lesson.instructor.lastname }}</td>
+                    {% if lesson.isIngeschreven(app.user) %}
+                        <td><a href="{{ path('memberUitschrijven', {'lesId':lesson.id}) }}">Uitschrijven</a></td>
+                    {% else %}
+                        <td><a href="{{ path('memberInschrijven', {'lesId':lesson.id}) }}">Inschrijven</a></td>
+                    {% endif %}
                 </tr>
             {% endfor %}
         </table>
